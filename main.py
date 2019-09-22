@@ -3,6 +3,8 @@ import platform
 
 from archivo import Archivo
 from gramatica import Gramatica
+from validador import Validador
+from validador import ValidadorError
 
 gramatica = Gramatica()
 archivo = None
@@ -38,19 +40,29 @@ display_tittle_bar()
 
 while choice != 'q':
 
-    choice = get_user_choice()
-
     display_tittle_bar()
+
+    choice = get_user_choice()
 
     if choice == "1":
 
-        print("")
+        #print("")
 
-        nombre_archivo = input("Ingrese el nombre del archivo\n>>")
-        archivo = Archivo()
-        archivo.cargar_archivo("./gramaticas/" + nombre_archivo, "r")
-        lista_gramatica = archivo.obtener_lista_desde_archivo()
-        gramatica = None
+        nombre_archivo = input("\nIngrese el nombre del archivo\n>>")
+        
+        try:
+            archivo = Archivo()
+            archivo.cargar_archivo("./gramaticas/" + nombre_archivo, "r")
+            lista_gramatica = archivo.obtener_lista_desde_archivo()
+
+            validador = Validador()
+            validador.validar_todo(lista_gramatica)
+
+        except FileNotFoundError:
+            print("El archivo no existe en la carpeta gramaticas")
+        except ValidadorError as Error:
+            print(Error)
+        
         input("Has pulsado la opción 1...\npulsa una tecla para continuar")
 
     elif choice == "2":
