@@ -5,6 +5,7 @@ from archivo import Archivo
 from gramatica import Gramatica
 from validador import Validador
 from validador import ValidadorError
+from adaptador import Adaptador
 
 gramatica = Gramatica()
 archivo = None
@@ -51,12 +52,16 @@ while choice != 'q':
         nombre_archivo = input("\nIngrese el nombre del archivo\n>>")
         
         try:
+            
             archivo = Archivo()
             archivo.cargar_archivo("./gramaticas/" + nombre_archivo, "r")
             lista_gramatica = archivo.obtener_lista_desde_archivo()
 
             validador = Validador()
             validador.validar_todo(lista_gramatica)
+
+            adaptador = Adaptador()
+            gramatica = adaptador.pasar_lista_a_gramatica(lista_gramatica)
 
         except FileNotFoundError:
             print("El archivo no existe en la carpeta gramaticas")
