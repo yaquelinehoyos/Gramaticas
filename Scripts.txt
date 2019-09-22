@@ -1,0 +1,14 @@
+#archivo = Archivo()
+#archivo.cargar_archivo("./Gramaticas/gramatica_1.txt", "r")
+#lista = archivo.obtener_lista_desde_archivo()
+#pattern = re.compile("^<\w+>->(\w+|<\w+>|\s|(\D^>^<))+$")
+#for i in range(0,len(lista)):
+#    if pattern.match(lista[i]):
+#        #print(f"Linea {i} match")
+#        producciones = []
+#        produccion = []
+#        for match in re.finditer('(<\w>->)|(\w)|(<\w>)|(\D)', lista[i]):
+#            produccion.append(match.group())
+#        print(lista[i])
+#        print(produccion)
+#        producciones.append(produccion)
