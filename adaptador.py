@@ -29,7 +29,6 @@ class Adaptador:
         producciones = []
         
         for i in range(0,len(lista_gramatica)):
-
             produccion = []
 
             for match in re.finditer(self.__regex_split_por_termino, lista_gramatica[i]):
@@ -37,7 +36,6 @@ class Adaptador:
                 elemento = match.group()
                 elemento = self.__quitar_separador(elemento)
                 produccion.append(elemento)
-
             producciones.append(produccion)
 
         return producciones
@@ -72,7 +70,7 @@ class Adaptador:
                 elemento = produccion[j]
 
                 if re.match(self.__regex_terminal,elemento):
-                    terminales.append(elemento)
+                      terminales.append(elemento)
         
         terminales = list(dict.fromkeys(terminales))
 

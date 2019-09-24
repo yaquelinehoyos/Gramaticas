@@ -12,3 +12,15 @@ class Gramatica:
 
     def asignar_no_terminales(self,no_terminales):
         self.__no_terminales = no_terminales
+
+    def obtener_producciones(self):
+
+        return self.__producciones
+
+    def obtener_terminales(self):
+
+        return self.__terminales
+
+    def obtener_no_terminales(self):
+
+        return self.__no_terminales
