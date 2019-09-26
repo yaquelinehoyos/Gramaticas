@@ -62,15 +62,6 @@ while choice != 'q':
 
             adaptador = Adaptador()
             gramatica = adaptador.pasar_lista_a_gramatica(lista_gramatica)
-            # pro = gramatica.obtener_producciones()
-            # r = 0
-            # t = pro[0]
-            # p= [1,2,3]
-            # print(pro[0])
-            # print(t)
-            # print(t[p[1]])
-            # dic = {r: t[p[1]]}
-            # print(dic)
             
             __primeros_no_terminales = ['a','d']
             __primeros_produccion = {}
@@ -83,76 +74,8 @@ while choice != 'q':
             __terminales = gramatica.obtener_terminales()
             __no_terminales = gramatica.obtener_no_terminales()
 
-            for _recorrer in range(0,len(__producciones)):
-                    _produccion = __producciones[_recorrer]
-                    if _produccion[1] in __terminales:
-                        __primeros_produccion[_recorrer] = _produccion[1]
-                    else: 
-                        if _produccion[1] in __no_terminales:
-                            print(_produccion[1])
-                            if _produccion[1] in __anulables:
-                                _anulable_local
-                                _iteracion = 1
-                                while _produccion[_iteracion] and iteracion <= len(_produccion) and _produccion[_iteracion] in __anulables:
-                                    _anulable_local = _produccion[_iteracion]
-                                    _iteracion = _iteracion + 1
-                                for _verificar in range(0,len(_anulable_local)):
-                                    __primeros_produccion = {_recorrer: __primeros_no_terminales[_anulable_local[_verificar]]}
-                                if _produccion[_iteracion] in __terminales:
-                                    __primeros_producciones = {_recorrer: _produccion[_iteracion]}
-                                else:   
-                                    __primeros_producciones = {_recorrer: __primeros_no_terminales[_produccion[_iteracion]]}
-                            else:
-                                    __primeros_producciones = {_recorrer: __primeros_no_terminales[_produccion[1]]}#si algo .index o verificar
-                    if _produccion[1] == '@':
-                        __primeros_produccion[_recorrer] = _produccion[1]   
-            print(__primeros_produccion)
-
-            for _recorrer in range(0,len(__producciones)):
-                _produccion = __producciones[_recorrer]
-                if _produccion[1] == '@':
-                    __anulables.append(_produccion[0])
-
-            for _recorrer in range(0,len(__producciones)):
-                _anulable = False
-                _produccion = __producciones[_recorrer]
-                if _produccion[1] == '@':
-                    print("holi")
-                    print(_produccion)
-                    print(_produccion[1])
-                    __anulables_produccion.append(_recorrer)
-                else:
-                    for _seguir in range (1,len(_produccion)):
-                        if _produccion[1] in __anulables:
-                            if _produccion[_seguir] in __anulables:
-                                _anulable = True
-                            else: 
-                                _anulable = False
-                    if _anulable:
-                        print(_produccion)
-                        __anulables_produccion.append(_recorrer)    
-            print(__anulables_produccion)   
-            # def anulables_produccion(self, __producciones, __terminales, __no_terminales):
-            #     for _recorrer in range(0,len(__producciones)):
-            #         _produccion = __producciones[_recorrer]
-            #         if produccion[1] == '@':
-            #             __anulables_produccion = [_recorrer]
-            #         else:
-            #             _anulable
-            #             for _seguir in range (1,len(_produccion)):
-            #                 if _produccion[_seguir] in __anulables:
-            #                     _anulable = True
-            #                 else: 
-            #                     _anulable = False
-            #             if _anulable:
-            #             __anulables_produccion = [_recorrer]
-
-            # def anulables(self, __producciones, __terminales, __no_terminales):
-            # for _recorrer in range(0,len(__producciones)):
-            #     _produccion = __producciones[_recorrer]
-            #     if _produccion[1] == '@':
-            #         __anulables.append(_produccion[0])
-            # print(__anulables)
+      
+            
             # def primeros_no_terminales(self, __producciones, __terminales, __no_terminales, __anulables):
             # for _seguir in range(0,len(__no_terminales))
             #         for _recorrer in range(0,len(__producciones)):
@@ -173,6 +96,33 @@ while choice != 'q':
             #                         else
             #                         __primeros_producciones = {__no_terminales[_seguir]: primeros[produccion[1]]}#si algo .index
 
+            # def primeros_producciones(self, __producciones, __terminales, __no_terminales, __anulables):
+            #     for _recorrer in range(0,len(__producciones)):
+            #             _produccion = __producciones[_recorrer]
+            #             if _produccion[1] in __terminales:
+            #                 __primeros_produccion[_recorrer] = _produccion[1]
+            #             else: 
+            #                 #falta verificar
+            #                 if _produccion[1] in __no_terminales:
+            #                     print(_produccion[1])
+            #                     if _produccion[1] in __anulables:
+            #                         _anulable_local
+            #                         _iteracion = 1
+            #                         while _produccion[_iteracion] and iteracion <= len(_produccion) and _produccion[_iteracion] in __anulables:
+            #                             _anulable_local = _produccion[_iteracion]
+            #                             _iteracion = _iteracion + 1
+            #                         for _verificar in range(0,len(_anulable_local)):
+            #                             __primeros_produccion = {_recorrer: __primeros_no_terminales[_anulable_local[_verificar]]}
+            #                         if _produccion[_iteracion] in __terminales:
+            #                             __primeros_producciones = {_recorrer: _produccion[_iteracion]}
+            #                         else:   
+            #                             __primeros_producciones = {_recorrer: __primeros_no_terminales[_produccion[_iteracion]]}
+            #                     else:
+            #                         __primeros_producciones = {_recorrer: __primeros_no_terminales[_produccion[1]]}#si algo .index o verificar
+            #                     if _produccion[1] == '@':
+            #                         __primeros_produccion[_recorrer] = _produccion[1]   
+            #             print(__primeros_produccion) 
+            
         except FileNotFoundError:
             print("El archivo no existe en la carpeta gramaticas")
         except ValidadorError as Error:

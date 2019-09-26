@@ -85,6 +85,10 @@ class Reconocer:
 
     #falta retorno
     def tipo_gramatica(self, __producciones, __terminales, __no_terminales):
+        anulables_produccion(__producciones, __terminales, __no_terminales)
+        anulables(__producciones, __terminales, __no_terminales)
+        primeros_no_terminales(__producciones, __terminales, __no_terminales)
+        primeros_producciones(__producciones, __terminales, __no_terminales)
         is_s
         is_q
         is_q_maybe
@@ -131,11 +135,13 @@ class Reconocer:
                         _is = True
                     else: 
                         _is = False
+                        break
                 if len(_produccion) == 2:
                     if _produccion[1] == '@' :
                         _is = True
                     else: 
                         _is = False  
+                        break
             return _is
 
     #listo
@@ -147,7 +153,8 @@ class Reconocer:
                         if _produccion[1] == '@' :
                             _is = True
                         else: 
-                            _is = False  
+                            _is = False 
+                            break 
                     else:
                         for _recorrer in range (1, len(_produccion)-1)
                             if _produccion[len(_produccion)] in __no_terminales:
@@ -155,6 +162,7 @@ class Reconocer:
                                     _is = True
                                 else: 
                                     _is = False
+                                    break
             return _is
 
     def es_q(self, __producciones, __terminales, __no_terminales):
