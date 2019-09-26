@@ -7,11 +7,6 @@ class Reconocer:
         __anulables_produccion
         __anulables
 
-    def obtener(self, gramatica):
-        __producciones = gramatica.obtener_procudcciones()
-        __terminales = gramatica.obtener_terminales()
-        __no_terminales = gramatica.obtener_no_terminales()
-        
     def primeros_producciones(self, __producciones, __terminales, __no_terminales, __anulables):
        for _recorrer in range(0,len(__producciones)):
             _produccion = __producciones[_recorrer]
@@ -95,6 +90,7 @@ class Reconocer:
         is_q_maybe
         is_ll
         is_lineal
+        is_especial
         if if len(__anulables) == 0:
             is_s = this.es_s(__producciones, __terminales, __no_terminales)
         else:
@@ -104,6 +100,7 @@ class Reconocer:
         if is_q_maybe:
             is_q = this.es_q(__producciones, __terminales, __no_terminales)
             is_lineal = this.es_lineal(__producciones, __terminales, __no_terminales)
+            is_especial = this.es_especial(__producciones, __terminales, __no_terminales)
         else:
             es_ll = this.es_ll(__producciones, __terminales, __no_terminales)
 
@@ -124,21 +121,40 @@ class Reconocer:
                 _is = False
         return _is 
 
-        #listo
-        def es_lineal(self, __producciones, __terminales, __no_terminales):
+    #listo
+    def es_especial(self, __producciones, __terminales, __no_terminales):
+        _is = False
+            for _seguir in range (0,len(__producciones)):
+                 _produccion = __producciones[_seguir]             
+                if len(_produccion) == 3:
+                    if _produccion[1] in __terminales and _produccion[2] in __no_terminales:
+                        _is = True
+                    else: 
+                        _is = False
+                if len(_produccion) == 2:
+                    if _produccion[1] == '@' :
+                        _is = True
+                    else: 
+                        _is = False  
+            return _is
+
+    #listo
+    def es_lineal(self, __producciones, __terminales, __no_terminales):
             _is = False
                 for _seguir in range (0,len(__producciones)):
                     _produccion = __producciones[_seguir]             
-                    if len(_produccion) == 3:
-                        if _produccion[1] in __terminales and _produccion[2] in __no_terminales:
-                            _is = True
-                        else: 
-                            _is = False
                     if len(_produccion) == 2:
                         if _produccion[1] == '@' :
                             _is = True
                         else: 
                             _is = False  
+                    else:
+                        for _recorrer in range (1, len(_produccion)-1)
+                            if _produccion[len(_produccion)] in __no_terminales:
+                                if _produccion[_recorrer] in __terminales:
+                                    _is = True
+                                else: 
+                                    _is = False
             return _is
 
     def es_q(self, __producciones, __terminales, __no_terminales):
