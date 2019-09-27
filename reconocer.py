@@ -1,11 +1,16 @@
+
+
+
+
 class Reconocer:
 
-        __primeros_no_terminales
-        __primeros_produccion
-        __primeros
-        __siguientes_no_terminales
-        __anulables_produccion
-        __anulables
+    __anulables = ['a','d']
+    __primeros_no_terminales = ['a','d']
+    __primeros_produccion = {}
+    __primeros = []
+    __siguientes_no_terminales =[]
+    nulos_produccion = []
+    
 
     def primeros_producciones(self, __producciones, __terminales, __no_terminales, __anulables):
        for _recorrer in range(0,len(__producciones)):
@@ -40,7 +45,7 @@ class Reconocer:
             _anulable = False
             _produccion = __producciones[_recorrer]
             if _produccion[1] == '@':
-                __anulables_produccion.append(_recorrer)
+                nulos_produccion.append(_recorrer)
             else:
                 for _seguir in range (1,len(_produccion)):
                     if _produccion[1] in __anulables:
@@ -49,7 +54,7 @@ class Reconocer:
                         else: 
                             _anulable = False
                 if _anulable:
-                    __anulables_produccion.append(_recorrer)
+                    nulos_produccion.append(_recorrer)
     #listo
     def anulables(self, __producciones, __terminales, __no_terminales):
         for _recorrer in range(0,len(__producciones)):
@@ -61,45 +66,49 @@ class Reconocer:
        for _seguir in range(0,len(__no_terminales)):
             for _recorrer in range(0,len(__producciones)):
                 _produccion = __producciones[_recorrer]
-                    if produccion[0] == __no_terminales[_seguir]:
-                        if produccion[1] in __terminales:
-                            __primeros_no_terminales = {__no_terminales[_seguir]: produccion[1]} 
-                        else: 
-                            if produccion[1] in __no_terminales:
-                                if produccion[1] in __anulables:
-                                    _anulable_local
-                                    _iteracion = 1
-                                    while produccion[_iteracion] and iteracion <= len(produccion):
-                                        if produccion[_iteracion] != produccion[0]
-                                            _anulable_local = produccion[_iteracion]
-                                        _iteracion =+
-                                    primeros_no_terminales( __producciones, __terminales, _anulable_local, __anulables)                               
-                            else:
+                if produccion[0] == __no_terminales[_seguir]:
+                    if produccion[1] in __terminales:
+                        __primeros_no_terminales = {__no_terminales[_seguir]: produccion[1]} 
+                    else: 
+                        if produccion[1] in __no_terminales:
+                            if produccion[1] in __anulables:
+                                _anulable_local
+                                _iteracion = 1
+                                while produccion[_iteracion] and iteracion <= len(produccion):
+                                    if produccion[_iteracion] != produccion[0]:
+                                        _anulable_local = produccion[_iteracion]
+                                    _iteracion += 1
+                                primeros_no_terminales( __producciones, __terminales, _anulable_local, __anulables)                               
+                        else:
                             __primeros_producciones = {__no_terminales[_seguir]: primeros[produccion[1]]}#si algo .index
 
-    def anulables_recursivo(self, __producciones, __terminales, __no_terminales):
+    # def anulables_recursivo(self, __producciones, __terminales, __no_terminales):
 
-    def siguientes_no_terminales(self, __producciones, __terminales, __no_terminales, __primeros, __anulables):
+    # def siguientes_no_terminales(self, __producciones, __terminales, __no_terminales, __primeros, __anulables):
 
-    def seleccion(self, __producciones, __terminales, __no_terminales):
+    # def seleccion(self, __producciones, __terminales, __no_terminales):
 
     #falta retorno
-    def tipo_gramatica(self, __producciones, __terminales, __no_terminales):
-        anulables_produccion(__producciones, __terminales, __no_terminales)
-        anulables(__producciones, __terminales, __no_terminales)
-        primeros_no_terminales(__producciones, __terminales, __no_terminales)
-        primeros_producciones(__producciones, __terminales, __no_terminales)
+    def tipo_gramatica(self, gramatica):
+        __producciones = gramatica.obtener_producciones()
+        __terminales = gramatica.obtener_terminales()
+        __no_terminales = gramatica.obtener_no_terminales()
+        self.anulables(__producciones, __terminales, __no_terminales)
+        self.anulables_produccion(__producciones, __terminales, __no_terminales)
+        self.primeros_no_terminales(__producciones, __terminales, __no_terminales)
+        self.primeros_producciones(__producciones, __terminales, __no_terminales)
         is_s
         is_q
         is_q_maybe
         is_ll
         is_lineal
         is_especial
-        if if len(__anulables) == 0:
+        tipo = []
+        if len(__anulables) == 0:
             is_s = this.es_s(__producciones, __terminales, __no_terminales)
         else:
-            for _recorrer in range(0,len(__primeros_produccion))
-                if if __primeros_produccion[_recorrer] in __no_terminales::
+            for _recorrer in range(0,len(__primeros_produccion)):
+                if __primeros_produccion[_recorrer] in __no_terminales:
                    is_q_maybe = False
         if is_q_maybe:
             is_q = this.es_q(__producciones, __terminales, __no_terminales)
@@ -107,16 +116,26 @@ class Reconocer:
             is_especial = this.es_especial(__producciones, __terminales, __no_terminales)
         else:
             es_ll = this.es_ll(__producciones, __terminales, __no_terminales)
+        if is_especial:
+            tipo[0] = 1
+        if is_lineal:
+            tipo[1] = 1
+        if is_ll:
+            tipo[2] = 1
+        if is_s:
+            tipo[3] = 1
+        if is_q:
+            tipo[4] = 1
 
     #listo
     def es_s(self, __producciones, __terminales, __no_terminales):
-         _is = True
-            for _recorrer in range (0,len(__no_terminales)):
+        _is = True
+        for _recorrer in range (0,len(__no_terminales)):
             _verificar = []
             _definir = []
             for _seguir in range (0,len(__producciones)):
                 _produccion = __producciones[_seguir]                   
-                 if __no_terminales[_recorrer] == _produccion[0]:
+                if __no_terminales[_recorrer] == _produccion[0]:
                     _verificar.append(_seguir)
             for ver in range (0,len(_verificar)):
                 _definir.append(__primeros_produccion[_verificar[ver]])
@@ -128,46 +147,46 @@ class Reconocer:
     #listo
     def es_especial(self, __producciones, __terminales, __no_terminales):
         _is = False
-            for _seguir in range (0,len(__producciones)):
-                 _produccion = __producciones[_seguir]             
-                if len(_produccion) == 3:
-                    if _produccion[1] in __terminales and _produccion[2] in __no_terminales:
-                        _is = True
-                    else: 
-                        _is = False
-                        break
-                if len(_produccion) == 2:
-                    if _produccion[1] == '@' :
-                        _is = True
-                    else: 
-                        _is = False  
-                        break
-            return _is
+        for _seguir in range (0,len(__producciones)):
+            _produccion = __producciones[_seguir]             
+            if len(_produccion) == 3:
+                if _produccion[1] in __terminales and _produccion[2] in __no_terminales:
+                    _is = True
+                else: 
+                    _is = False
+                    break
+            if len(_produccion) == 2:
+                if _produccion[1] == '@' :
+                    _is = True
+                else: 
+                    _is = False  
+                    break
+        return _is
 
     #listo
     def es_lineal(self, __producciones, __terminales, __no_terminales):
             _is = False
-                for _seguir in range (0,len(__producciones)):
-                    _produccion = __producciones[_seguir]             
-                    if len(_produccion) == 2:
-                        if _produccion[1] == '@' :
-                            _is = True
-                        else: 
-                            _is = False 
-                            break 
-                    else:
-                        for _recorrer in range (1, len(_produccion)-1)
-                            if _produccion[len(_produccion)] in __no_terminales:
-                                if _produccion[_recorrer] in __terminales:
-                                    _is = True
-                                else: 
-                                    _is = False
-                                    break
+            for _seguir in range (0,len(__producciones)):
+                _produccion = __producciones[_seguir]             
+                if len(_produccion) == 2:
+                    if _produccion[1] == '@' :
+                        _is = True
+                    else: 
+                        _is = False 
+                        break 
+                else:
+                    for _recorrer in range (1, len(_produccion)-1):
+                        if _produccion[len(_produccion)] in __no_terminales:
+                            if _produccion[_recorrer] in __terminales:
+                                _is = True
+                            else: 
+                                _is = False
+                                break
             return _is
 
-    def es_q(self, __producciones, __terminales, __no_terminales):
+    # def es_q(self, __producciones, __terminales, __no_terminales):
         
 
-    def es_ll(self, __producciones, __terminales, __no_terminales):
+    # def es_ll(self, __producciones, __terminales, __no_terminales):
     
     

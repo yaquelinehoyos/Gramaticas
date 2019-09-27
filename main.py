@@ -6,6 +6,7 @@ from gramatica import Gramatica
 from validador import Validador
 from validador import ValidadorError
 from adaptador import Adaptador
+from reconocer import Reconocer
 
 gramatica = Gramatica()
 archivo = None
@@ -74,7 +75,18 @@ while choice != 'q':
             __terminales = gramatica.obtener_terminales()
             __no_terminales = gramatica.obtener_no_terminales()
 
-      
+            reconocer = Reconocer()
+            tipo = reconocer.tipo_gramatica(gramatica)
+            if tipo[0] == 1:
+                print("Es gramatica especial")
+            if tipo[1] == 1:
+                print("Es gramatica lineal")
+            if tipo[2] == 1:
+                print("Es gramatica ll")
+            if tipo[3] == 1:
+                print("Es gramatica s")
+            if tipo[4] == 1:
+                print("Es gramatica q")
             
             # def primeros_no_terminales(self, __producciones, __terminales, __no_terminales, __anulables):
             # for _seguir in range(0,len(__no_terminales))
