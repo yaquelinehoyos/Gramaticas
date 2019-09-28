@@ -63,24 +63,7 @@ while choice != 'q':
 
             adaptador = Adaptador()
             gramatica = adaptador.pasar_lista_a_gramatica(lista_gramatica)
-            
-            __producciones = gramatica.obtener_producciones()
-            __terminales = gramatica.obtener_terminales()
-            __no_terminales = gramatica.obtener_no_terminales()
 
-            # reconocer = Reconocer()
-            # tipo = reconocer.tipo_gramatica(gramatica)
-            # if tipo == 1:
-            #     print("Es gramatica especial")
-            # if tipo == 2:
-            #     print("Es gramatica lineal")
-            # if tipo == 3:
-            #     print("Es gramatica ll")
-            # if tipo == 4:
-            #     print("Es gramatica s")
-            # if tipo == 5:
-            #     print("Es gramatica q")
-            
         except FileNotFoundError:
             print("El archivo no existe en la carpeta gramaticas")
         except ValidadorError as Error:
@@ -98,12 +81,11 @@ while choice != 'q':
 
         else:
 
-            __producciones = gramatica.obtener_producciones()
-            __terminales = gramatica.obtener_terminales()
-            __no_terminales = gramatica.obtener_no_terminales()
-
             reconocer = Reconocer()
             tipo = reconocer.tipo_gramatica(gramatica)
+            print(tipo)
+            if tipo == 0:
+                print("No es ningun tipo solicitado en la practica")
             if tipo == 1:
                 print("Es gramatica especial")
             if tipo == 2:
@@ -129,9 +111,11 @@ while choice != 'q':
 
             input("Has pulsado la opción 3...\npulsa una tecla para continuar")
 
-        else:
+        # else:
 
-            print("Do something")
+            # reconocer = Reconocer()
+            # _select= reconocer.mostrar_seleccion(gramatica)
+            # print(_select)
 
         input("Has pulsado la opción 3...\npulsa una tecla para continuar")
 

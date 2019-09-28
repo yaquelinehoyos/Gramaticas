@@ -1,17 +1,13 @@
-
-
-
-
 class Reconocer:
 
     __anulables = []
-    __primeros_no_terminales = []
+    __producciones_anulables = []
+    __primeros_no_terminales = {}
     __primeros_produccion = {}
-    __primeros = []
-    __siguientes_no_terminales =[]
-    nulos_produccion = []
-    
+    __siguientes_no_terminales ={}
+    __seleccion = {}
 
+    #falta
     def primeros_producciones(self, __producciones, __terminales, __no_terminales):
        for _recorrer in range(0,len(__producciones)):
             _produccion = __producciones[_recorrer]
@@ -45,7 +41,7 @@ class Reconocer:
             _anulable = False
             _produccion = __producciones[_recorrer]
             if _produccion[1] == '@':
-                self.nulos_produccion.append(_recorrer)
+                self.__producciones_anulables.append(_recorrer)
             else:
                 for _seguir in range (1,len(_produccion)):
                     if _produccion[1] in self.__anulables:
@@ -54,7 +50,7 @@ class Reconocer:
                         else: 
                             _anulable = False
                 if _anulable:
-                    self.nulos_produccion.append(_recorrer)
+                    self.__producciones_anulables.append(_recorrer)
     #listo
     def anulables(self, __producciones, __terminales, __no_terminales):
         for _recorrer in range(0,len(__producciones)):
@@ -81,14 +77,22 @@ class Reconocer:
                                 primeros_no_terminales( __producciones, __terminales, _anulable_local, __anulables)                               
                         # else:
                         #     __primeros_producciones = {__no_terminales[_seguir]: primeros[produccion[1]]}#si algo .index
-
+    # #falta
     # def anulables_recursivo(self, __producciones, __terminales, __no_terminales):
+    # #falta    
+    # def siguientes_no_terminales(self, __producciones, __terminales, __no_terminales):
 
-    # def siguientes_no_terminales(self, __producciones, __terminales, __no_terminales, __primeros, __anulables):
+    #listo
+    def seleccion(self, __producciones, __terminales, __no_terminales):
+        for _recorrer in range(0,len(__producciones)):
+            _produccion = __producciones[_recorrer]
+            if _recorrer in self.__producciones_anulables:
+                self.__seleccion[_recorrer] = self.__siguientes_no_terminales.get(_produccion[0])
+            else:
+                self.__seleccion[_recorrer] = self.__primeros_produccion[_recorrer]
+        print(self.__seleccion)
 
-    # def seleccion(self, __producciones, __terminales, __no_terminales):
-
-    #falta retorno
+    #listo
     def tipo_gramatica(self, gramatica):
         __producciones = gramatica.obtener_producciones()
         __terminales = gramatica.obtener_terminales()
@@ -97,6 +101,8 @@ class Reconocer:
         self.anulables_produccion(__producciones, __terminales, __no_terminales)
         self.primeros_no_terminales(__producciones, __terminales, __no_terminales)
         self.primeros_producciones(__producciones, __terminales, __no_terminales)
+        # self.siguientes_no_terminales(__producciones, __terminales, __no_terminales)
+        self.seleccion(__producciones, __terminales, __no_terminales)
         is_s = False
         is_q = False
         is_q_maybe = True
@@ -111,11 +117,15 @@ class Reconocer:
                 if self.__primeros_produccion.get(_recorrer) in __no_terminales:
                     is_q_maybe = False
         if is_q_maybe:
-            # is_q = self.es_q(__producciones, __terminales, __no_terminales)
+            is_q = self.es_q(__producciones, __terminales, __no_terminales)
             is_lineal = self.es_lineal(__producciones, __terminales, __no_terminales)
             is_especial = self.es_especial(__producciones, __terminales, __no_terminales)
-        # else:
-        #     is_ll = self.es_ll(__producciones, __terminales, __no_terminales)
+        else:
+            is_ll = self.es_ll(__producciones, __terminales, __no_terminales)
+        if is_especial:
+            is_lineal = False
+        if is_s:
+            is_q = False
         if is_especial:
             tipo = 1
         if is_lineal:
@@ -127,6 +137,19 @@ class Reconocer:
         if is_q:
             tipo = 5
         return tipo
+
+    #falta porque faltan los metodos que alli se llaman
+    # def mostrar_seleccion(self, gramatica):
+    #     __producciones = gramatica.obtener_producciones()
+    #     __terminales = gramatica.obtener_terminales()
+    #     __no_terminales = gramatica.obtener_no_terminales()
+    #     self.anulables(__producciones, __terminales, __no_terminales)
+    #     self.anulables_produccion(__producciones, __terminales, __no_terminales)
+    #     self.primeros_no_terminales(__producciones, __terminales, __no_terminales)
+    #     self.primeros_producciones(__producciones, __terminales, __no_terminales)
+    #     self.__siguientes_no_terminales(__producciones, __terminales, __no_terminales)
+    #     return self.__seleccion(__producciones, __terminales, __no_terminales)
+
     #listo
     def es_s(self, __producciones, __terminales, __no_terminales):
         _is = True
@@ -183,10 +206,51 @@ class Reconocer:
                                 _is = False
                                 break
             return _is
-
-    # def es_q(self, __producciones, __terminales, __no_terminales):
-        
-
-    # def es_ll(self, __producciones, __terminales, __no_terminales):
     
+    #listo
+    def es_q(self, __producciones, __terminales, __no_terminales):
+        _is = True
+        for _recorrer in range (0,len(__no_terminales)):
+            _verificar = []
+            _definir = []
+            for _seguir in range (0,len(__producciones)):
+                _produccion = __producciones[_seguir]                   
+                if __no_terminales[_recorrer] == _produccion[0]:
+                    _verificar.append(_seguir)
+            for ver in range (0,len(_verificar)):
+                _definir.append(self.__seleccion.get(_verificar[ver])) 
+            for element in _definir:
+                if len(element) > 1:
+                    for x in element:
+                        for y in _definir:
+                            if x == y:
+                                _is = False  
+                else:
+                    if _definir.count(element) > 1:
+                        _is = False
+            return _is 
+
+    #listo
+    def es_ll(self, __producciones, __terminales, __no_terminales):
+        _is = True
+        for _recorrer in range (0,len(__no_terminales)):
+            _verificar = []
+            _definir = []
+            for _seguir in range (0,len(__producciones)):
+                _produccion = __producciones[_seguir]                   
+                if __no_terminales[_recorrer] == _produccion[0]:
+                    _verificar.append(_seguir)
+            for ver in range (0,len(_verificar)):
+                _definir.append(self.__seleccion.get(_verificar[ver]))
+            print(_definir)    
+            for element in _definir:
+                if len(element) > 1:
+                    for x in element:
+                        for y in _definir:
+                            if x == y:
+                                _is = False   
+                else:
+                    if _definir.count(element) > 1:
+                        _is = False
+            return _is 
     
