@@ -90,7 +90,6 @@ class Reconocer:
                 self.__seleccion[_recorrer] = self.__siguientes_no_terminales.get(_produccion[0])
             else:
                 self.__seleccion[_recorrer] = self.__primeros_produccion[_recorrer]
-        print(self.__seleccion)
 
     #listo
     def tipo_gramatica(self, gramatica):
@@ -241,16 +240,14 @@ class Reconocer:
                 if __no_terminales[_recorrer] == _produccion[0]:
                     _verificar.append(_seguir)
             for ver in range (0,len(_verificar)):
-                _definir.append(self.__seleccion.get(_verificar[ver]))
-            print(_definir)    
+                _definir.append(self.__seleccion.get(_verificar[ver])) 
             for element in _definir:
                 if len(element) > 1:
                     for x in element:
                         for y in _definir:
                             if x == y:
-                                _is = False   
+                                _is = False  
                 else:
                     if _definir.count(element) > 1:
                         _is = False
             return _is 
-    
