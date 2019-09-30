@@ -21,7 +21,7 @@ def display_tittle_bar():
     os.system(get_clear_command_by_os())
 
     print("\t********************************************************************************")
-    print("\t***  Laboratorio teoría de Lenguajes 201901 - Practica 2: Gramáticas         ***")
+    print("\t***  Laboratorio teoria de Lenguajes 201901 - Practica 2: Gramaticas         ***")
     print("\t********************************************************************************")
 
 
@@ -48,12 +48,10 @@ while choice != 'q':
 
     if choice == "1":
 
-        #print("")
-
         nombre_archivo = input("\nIngrese el nombre del archivo\n>>")
-        
+
         try:
-            
+
             archivo = Archivo()
             archivo.cargar_archivo("./gramaticas/" + nombre_archivo, "r")
             lista_gramatica = archivo.obtener_lista_desde_archivo()
@@ -68,7 +66,7 @@ while choice != 'q':
             print("El archivo no existe en la carpeta gramaticas")
         except ValidadorError as Error:
             print(Error)
-        
+
         input("Has pulsado la opción 1...\npulsa una tecla para continuar")
 
     elif choice == "2":
@@ -80,9 +78,9 @@ while choice != 'q':
             print("Do something")
 
         else:
-
             reconocer = Reconocer()
-            tipo = reconocer.tipo_gramatica(gramatica)
+            es_produccion_anulable = reconocer.es_produccion_anulable(['<B>','<C>','<D>'], gramatica)
+            """tipo = reconocer.tipo_gramatica(gramatica)
             print(tipo)
             if tipo == 0:
                 print("No es ningun tipo solicitado en la practica")
@@ -95,8 +93,8 @@ while choice != 'q':
             if tipo == 4:
                 print("Es gramatica s")
             if tipo == 5:
-                print("Es gramatica q")
-                
+                print("Es gramatica q") 
+            """
         input("Has pulsado la opción 2...\npulsa una tecla para continuar")
 
     elif choice == "3":

@@ -4,6 +4,12 @@ class Gramatica:
     __terminales = []
     __no_terminales = []
 
+    __simbolos = {"nulo":"λ","fin_secuencia":"┤"}
+
+    @staticmethod
+    def obtener_simbolo_nulo():
+        return Gramatica.__simbolos["nulo"]
+
     def asignar_produciones(self,producciones):
         self.__producciones = producciones
 
@@ -14,13 +20,10 @@ class Gramatica:
         self.__no_terminales = no_terminales
 
     def obtener_producciones(self):
-
         return self.__producciones
 
     def obtener_terminales(self):
-
         return self.__terminales
 
     def obtener_no_terminales(self):
-
         return self.__no_terminales

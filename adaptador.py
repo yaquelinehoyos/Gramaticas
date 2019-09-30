@@ -9,8 +9,7 @@ class Adaptador:
     __regex_terminal = r"(\w)"
     __regex_lado_derecho = r"(<\w>->)"
     __separador_lados_produccion = "->"
-
-
+    
     def pasar_lista_a_gramatica(self, lista_gramatica):
 
         producciones = self.__obtener_producciones(lista_gramatica)
@@ -69,7 +68,7 @@ class Adaptador:
 
                 elemento = produccion[j]
 
-                if re.match(self.__regex_terminal,elemento):
+                if re.match(self.__regex_terminal,elemento) and elemento != Gramatica.obtener_simbolo_nulo():
                       terminales.append(elemento)
         
         terminales = list(dict.fromkeys(terminales))

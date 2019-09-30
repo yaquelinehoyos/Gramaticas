@@ -5,7 +5,7 @@ import re
 
 class Validador:
 
-    __regex_sintaxis_correcta_produccion = "^<\w+>->(\w+|<\w+>|\s|(\D^>^<))+$"
+    __regex_sintaxis_correcta_produccion = r"^<\w+>->(\w+|<\w+>|\s|(\D^>^<))+$"
 
     def validar_todo(self,lista_gramatica):
         self.__validar_lista_vacia(lista_gramatica)
