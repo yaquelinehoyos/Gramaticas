@@ -79,8 +79,8 @@ while choice != 'q':
 
         else:
             reconocer = Reconocer()
-            es_produccion_anulable = reconocer.es_produccion_anulable(['<B>','<C>','<D>'], gramatica)
-            """tipo = reconocer.tipo_gramatica(gramatica)
+            #es_produccion_anulable = reconocer.es_produccion_anulable(['<B>','<C>','<D>'], gramatica)
+            tipo = reconocer.tipo_gramatica(gramatica)
             print(tipo)
             if tipo == 0:
                 print("No es ningun tipo solicitado en la practica")
@@ -94,7 +94,7 @@ while choice != 'q':
                 print("Es gramatica s")
             if tipo == 5:
                 print("Es gramatica q") 
-            """
+            
         input("Has pulsado la opción 2...\npulsa una tecla para continuar")
 
     elif choice == "3":
